@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Mari Mengenali dan Mengembangkan Potensi Diri - BK Kelas 7</title>
+  <!-- Google Fonts & CanvasConfetti for visual touch -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #4F46E5;
+      --primary-light: #EEF2FF;
+      --primary-dark: #3730A3;
+      --secondary: #06B6D4;
+      --secondary-light: #CFFAFE;
+      --accent-yellow: #F59E0B;
+      --accent-green: #10B981;
+      --accent-pink: #EC4899;
+      --bg-main: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --text-main: #1E293B;
+      --text-muted: #64748B;
+      --border-color: #E2E8F0;
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 25px rgba(0,0,0,0.12);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 80px;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Fredoka', cursive, sans-serif;
+    }
+
+    /* Header Navigasi Mobile & Laptop */
+    .app-header {
+      background: linear-gradient(135deg, var(--primary), #6366F1);
+      color: white;
+      padding: 16px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .app-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .user-badge {
+      font-size: 0.85rem;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 4px 12px;
+      border-radius: 20px;
+      backdrop-filter: blur(5px);
+    }
+
+    /* Container Utama */
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 16px;
+    }
+
+    /* Navigasi Tab / Menu */
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 6px;
+      background: #E2E8F0;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      scrollbar-width: none;
+    }
+
+    .nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab-btn {
+      flex: 0 0 auto;
+      padding: 10px 18px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.9rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tab-btn.active {
+      background: white;
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Bagian Halaman (Pages) */
+    .page {
+      display: none;
+      animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Card Styling */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%);
+      border: 2px solid #C7D2FE;
+      text-align: center;
+      padding: 32px 20px;
+    }
+
+    .hero-title {
+      color: var(--primary-dark);
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .hero-subtitle {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+
+    /* Form Identitas */
+    .form-group {
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-main);
+      font-size: 0.95rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: all 0.2s;
+      outline: none;
+      background: #FAFAFA;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+      background: white;
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    }
+
+    /* Tombol-Tombol */
+    .btn {
+      width: 100%;
+      padding: 16px 24px;
+      border: none;
+      border-radius: 14px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background: #F1F5F9;
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-success {
+      background: var(--accent-green);
+      color: white;
+    }
+
+    .btn-warning {
+      background: var(--accent-yellow);
+      color: white;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    /* Materi Interaktif Grid Kartu */
+    .potensi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .potensi-card {
+      background: white;
+      border: 2px solid var(--border-color);
+      border-radius: 16px;
+      padding: 18px 14px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      user-select: none;
+    }
+
+    .potensi-card:hover, .potensi-card:active {
+      border-color: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      background: var(--primary-light);
+    }
+
+    .potensi-icon {
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+    }
+
+    .potensi-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+
+    /* Modal / Popup Detail Potensi */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 16px;
+    }
+
+    .modal-card {
+      background: white;
+      border-radius: 20px;
+      padding: 24px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: var(--shadow-lg);
+      animation: modalUp 0.3s ease;
+    }
+
+    @keyframes modalUp {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .modal-close {
+      background: #F1F5F9;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Asesmen / Pertanyaan */
+    .question-item {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    .question-text {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    @media (max-width: 480px) {
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .option-btn {
+      padding: 12px 14px;
+      border: 2px solid var(--border-color);
+      background: #F8FAFC;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-main);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .option-btn.selected {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary-dark);
+    }
+
+    /* Profil Hasil & Chart */
+    .result-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .badge-high { background: #D1FAE5; color: #065F46; }
+    .badge-mid { background: #FEF3C7; color: #92400E; }
+    .badge-low { background: #E0E7FF; color: #3730A3; }
+
+    .chart-bar-wrapper {
+      margin-bottom: 12px;
+    }
+
+    .chart-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .chart-track {
+      height: 14px;
+      background: #E2E8F0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .chart-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--secondary), var(--primary));
+      border-radius: 10px;
+      width: 0%;
+      transition: width 1s ease-in-out;
+    }
+
+    /* Alert / Toast Status */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1E293B;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-lg);
+      z-index: 2000;
+      display: none;
+      animation: popToast 0.3s ease;
+    }
+
+    @keyframes popToast {
+      from { bottom: 0; opacity: 0; }
+      to { bottom: 20px; opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="app-title">
+      <span>🌟</span> Potensi Diri BK
+    </div>
+    <div class="user-badge" id="headerUserBadge">Siswa SMP</div>
+  </header>
+
+  <div class="container">
+
+    <!-- Navigasi Tab -->
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="switchPage('pageHome')">🏠 Beranda</button>
+      <button class="tab-btn" onclick="switchPage('pageMateri')">📚 Materi</button>
+      <button class="tab-btn" onclick="switchPage('pageAsesmen')">✏️ Kenali Potensiku</button>
+      <button class="tab-btn" onclick="switchPage('pageHasil')">📊 Lihat Hasil</button>
+      <button class="tab-btn" onclick="switchPage('pageRefleksi')">💡 Refleksi</button>
+      <button class="tab-btn" onclick="switchPage('pageRencana')">🎯 Rencana Aksi</button>
+    </div>
+
+    <!-- 1 & 2. HALAMAN PEMBUKA & IDENTITAS -->
+    <div id="pageHome" class="page active">
+      <div class="card hero-card">
+        <h1 class="hero-title">MARI MENGENALI DAN MENGEMBANGKAN POTENSI DIRI</h1>
+        <p class="hero-subtitle">Media Pembelajaran Interaktif Bimbingan dan Konseling Kelas 7 SMP</p>
+        <p style="font-size:0.95rem; color:var(--text-muted); margin-bottom: 20px;">
+          Setiap orang terlahir unik dengan kelebihan masing-masing. Yuk, temukan kilau potensimu dan susun langkah hebatmu! ✨
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom: 16px; color: var(--primary-dark);">📝 Data Diri Siswa</h3>
+        <form id="formIdentitas">
+          <div class="form-group">
+            <label for="nama">Nama Lengkap Siswa</label>
+            <input type="text" id="nama" class="form-control" placeholder="Contoh: Budi Pratama" required>
+          </div>
+          <div class="form-group">
+            <label for="kelas">Kelas</label>
+            <input type="text" id="kelas" class="form-control" placeholder="Contoh: 7A / 7B" required>
+          </div>
+          <div class="form-group">
+            <label for="absen">Nomor Absen</label>
+            <input type="number" id="absen" class="form-control" placeholder="Contoh: 12" min="1" required>
+          </div>
+          <button type="button" class="btn btn-primary" onclick="simpanIdentitasAndNext()">
+            🚀 Mulai Belajar & Kenali Diri
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- 3 & 4. HALAMAN MATERI INTERAKTIF -->
+    <div id="pageMateri" class="page">
+      <div class="card">
+        <h2>💡 Apa itu Potensi Diri?</h2>
+        <p style="margin-top: 8px;">
+          <strong>Potensi Diri</strong> adalah kemampuan, bakat, kekuatan, atau kapasitas tersembunyi yang dimiliki oleh seseorang. Potensi ini bagaikan **benih tanaman** yang jika disiram, dirawat, dan diberi pupuk, akan tumbuh menjadi pohon yang lebat dan berbuah manis! 🌱➡️🌳
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>✨ Mengapa Penting Mengenali Potensi Diri?</h2>
+        <ul style="margin-left: 20px; margin-top: 10px; color: var(--text-main);">
+          <li>Membuat kita lebih <strong>percaya diri</strong> dan bersyukur.</li>
+          <li>Membantu memilih kegiatan ekstrakurikuler & hobi yang tepat.</li>
+          <li>Memudahkan kita dalam merencanakan cita-cita masa depan.</li>
+          <li>Tahu kelebihan yang bisa dibagikan dan dikembangkan.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>🎯 Jenis-Jenis Potensi Diri</h2>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 4px;">
+          Klik atau tekan pada kartu di bawah ini untuk melihat contoh dan penjelasannya!
+        </p>
+
+        <div class="potensi-grid">
+          <div class="potensi-card" onclick="openDetail('Akademik')">
+            <div class="potensi-icon">🧠</div>
+            <div class="potensi-title">Akademik</div>
+          </div>
+          <div class="potensi-card" onclick="openDetail('Kreativitas')">
+            <div class="potensi-icon">🎨</div>
+            <div class="potensi-title">Kreativitas</div>
+          </div>
+          <div class="potensi-card" onclick="openDetail('Komunikasi')">
+            <div class="potensi-icon">🗣️</div>
+            <div class="potensi-title">Komunikasi</div>
+          </div>
+          <div class="potensi-card" onclick="openDetail('Kepemimpinan')">
+            <div class="potensi-icon">👑</div>
+            <div class="potensi-title">Kepemimpinan</div>
+          </div>
+          <div class="potensi-card" onclick="openDetail('Olahraga')">
+            <div class="potensi-icon">⚽</div>
+            <div class="potensi-title">Olahraga</div>
+          </div>
+          <div class="potensi-card" onclick="openDetail('Seni')">
+            <div class="potensi-icon">🎵</div>
+            <div class="potensi-title">Seni & Musik</div>
+          </div>
+          <div class="potensi-card" onclick="openDetail('Sosial')">
+            <div class="potensi-icon">🤝</div>
+            <div class="potensi-title">Sosial & Empati</div>
+          </div>
+          <div class="potensi-card" onclick="openDetail('Keterampilan')">
+            <div class="potensi-icon">🛠️</div>
+            <div class="potensi-title">Keterampilan Praktis</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>🚀 Cara Mengenali & Mengembangkan Potensi</h2>
+        <div style="margin-top: 10px;">
+          <p><strong>1. Berani Mencoba Hal Baru:</strong> Ikut kegiatan ekskul atau organisasi sekolah.</p>
+          <p><strong>2. Bertanya pada Orang Lain:</strong> Minta pendapat teman, orang tua, atau guru BK tentang kelebihanmu.</p>
+          <p><strong>3. Rajin Berlatih:</strong> Potensi tidak akan terasah tanpa latihan yang konsisten.</p>
+          <p><strong>4. Pantang Menyerah:</strong> Kegagalan adalah bagian dari proses belajar.</p>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="switchPage('pageAsesmen')">
+        Lanjut ke "Kenali Potensiku" ➡️
+      </button>
+    </div>
+
+    <!-- 5 & 6. ACTIVITAS KENALI POTENSIMU (15 PERTANYAAN) -->
+    <div id="pageAsesmen" class="page">
+      <div class="card" style="background: var(--primary-light); border-color: #C7D2FE;">
+        <h2 style="color: var(--primary-dark);">📝 Asesmen Reflektif: Kenali Potensimu</h2>
+        <p style="font-size: 0.9rem; color: var(--text-main); margin-top: 4px;">
+          Jawablah 15 pertanyaan di bawah ini secara jujur sesuai dengan keadaan dirimu saat ini. Tidak ada jawaban salah!
+        </p>
+      </div>
+
+      <div id="questionsContainer">
+        <!-- Pertanyaan di-generate secara otomatis via JS -->
+      </div>
+
+      <button class="btn btn-success" onclick="hitungDanTampilkanHasil()">
+        📊 Tampilkan Hasil & Profil Potensiku
+      </button>
+    </div>
+
+    <!-- 7. PROFIL POTENSI SAYA (HASIL & CHART) -->
+    <div id="pageHasil" class="page">
+      <div class="card hero-card" style="background: white; border-color: var(--primary);">
+        <span style="font-size: 3rem;">🌈</span>
+        <h2>PROFIL POTENSI DIRI SAYA</h2>
+        <p id="hasilSiswaMeta" style="font-weight:600; color:var(--text-muted); margin-top:4px;">-</p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom: 14px; color: var(--primary-dark);">📊 Ringkasan Nilai Potensi</h3>
+        <div id="chartContainer">
+          <!-- Grafik/Diagram Batang Sederhana di-render di sini -->
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom: 12px; color: var(--accent-green);">🌟 Potensi Paling Menonjol</h3>
+        <div id="potensiMenonjolBox" class="result-badge badge-high" style="font-size: 1rem; padding: 8px 16px;">-</div>
+        <p id="descMenonjol" style="font-size:0.95rem; margin-top: 8px; color:var(--text-main);">-</p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom: 12px; color: var(--accent-yellow);">👍 Potensi Cukup Berkembang</h3>
+        <div id="potensiBerkembangBox" class="result-badge badge-mid" style="font-size: 1rem; padding: 8px 16px;">-</div>
+        <p id="descBerkembang" style="font-size:0.95rem; margin-top: 8px; color:var(--text-main);">-</p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom: 12px; color: var(--primary);">🌱 Potensi Yang Masih Perlu Dikembangkan</h3>
+        <div id="potensiPerluDikembangkanBox" class="result-badge badge-low" style="font-size: 1rem; padding: 8px 16px;">-</div>
+        <p id="descPerluDikembangkan" style="font-size:0.95rem; margin-top: 8px; color:var(--text-main);">-</p>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="switchPage('pageRefleksi')">💡 Lanjut Refleksi</button>
+        <button class="btn btn-secondary" onclick="ulangAsesmen()">🔄 Ulangi Asesmen</button>
+      </div>
+    </div>
+
+    <!-- 8. AKTIVITAS REFLEKSI -->
+    <div id="pageRefleksi" class="page">
+      <div class="card">
+        <h2>💡 Lembar Refleksi Diri</h2>
+        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom: 16px;">
+          Tuliskan pemikiran positifmu mengenai kekuatan dan potensi yang kamu miliki.
+        </p>
+
+        <div class="form-group">
+          <label>1. Kelebihan yang saya miliki adalah...</label>
+          <textarea id="refleksi1" class="form-control" rows="2" placeholder="Contoh: Saya mudah berteman dan suka membaca buku..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>2. Hal yang paling saya sukai dari diri saya adalah...</label>
+          <textarea id="refleksi2" class="form-control" rows="2" placeholder="Contoh: Saya pantang menyerah kalau belajar hal baru..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>3. Potensi yang paling ingin saya tingkatkan adalah...</label>
+          <textarea id="refleksi3" class="form-control" rows="2" placeholder="Contoh: Public speaking dan keberanian bicara di depan kelas..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>4. Langkah awal yang akan saya lakukan adalah...</label>
+          <textarea id="refleksi4" class="form-control" rows="2" placeholder="Contoh: Berlatih presentasi di depan cermin..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>5. Orang yang dapat membantu saya mengembangkan potensi ini adalah...</label>
+          <textarea id="refleksi5" class="form-control" rows="2" placeholder="Contoh: Guru BK, Orang Tua, dan Teman Sebaya..."></textarea>
+        </div>
+
+        <button class="btn btn-primary" onclick="simpanRefleksiAndNext()">
+          🎯 Susun Rencana Aksi Saya ➡️
+        </button>
+      </div>
+    </div>
+
+    <!-- 9. RENCANA AKSI SAYA -->
+    <div id="pageRencana" class="page">
+      <div class="card">
+        <h2>🎯 Rencana Aksi Pengembangan Diri</h2>
+        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom: 16px;">
+          Mari buat target sederhana agar potensimu semakin terasah dengan baik!
+        </p>
+
+        <div class="form-group">
+          <label>Potensi yang Ingin Dikembangkan</label>
+          <input type="text" id="rencanaPotensi" class="form-control" placeholder="Contoh: Keterampilan Berbicara di Depan Umum">
+        </div>
+
+        <div class="form-group">
+          <label>Target Saya</label>
+          <input type="text" id="rencanaTarget" class="form-control" placeholder="Contoh: Berani bertanya/menjawab 1 kali dalam setiap pelajaran">
+        </div>
+
+        <div class="form-group">
+          <label>Langkah Nyata yang Akan Dilakukan</label>
+          <textarea id="rencanaLangkah" class="form-control" rows="2" placeholder="Contoh: Mencatat pertanyaan sebelum kelas dimulai dan menarik napas dalam-dalam"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Waktu Pelaksanaan</label>
+          <input type="text" id="rencanaWaktu" class="form-control" placeholder="Contoh: Mulai minggu ini selama 1 bulan ke depan">
+        </div>
+
+        <div class="form-group">
+          <label>Orang yang Dapat Mendukung Saya</label>
+          <input type="text" id="rencanaPendukung" class="form-control" placeholder="Contoh: Orang tua, wali kelas, dan sahabat terbaikku">
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:12px; margin-top:20px;">
+          <button class="btn btn-success" id="btnKirim" onclick="simpanDanKirimData()">
+            💾 Simpan & Kirim Hasil ke Guru BK
+          </button>
+          <button class="btn btn-secondary" onclick="ulangSemua()">
+            🔄 Ulangi Dari Awal
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- End Container -->
+
+  <!-- MODAL DETAIL MATERI POTENSI -->
+  <div class="modal-overlay" id="modalPotensi">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalTitle" style="color:var(--primary);">Detail Potensi</h3>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div id="modalBody" style="font-size:0.95rem; color:var(--text-main);">
+        <!-- Isi modal -->
+      </div>
+      <button class="btn btn-primary" style="margin-top:16px;" onclick="closeModal()">Mengerti 👍</button>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFIKASI -->
+  <div id="toast" class="toast">Notifikasi</div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    /* ==========================================================================
+       KONFIGURASI GOOGLE APPS SCRIPT URL
+       ========================================================================== */
+    const GOOGLE_SCRIPT_URL = "MASUKKAN_URL_GOOGLE_APPS_SCRIPT_DI_SINI";
+
+    /* ==========================================================================
+       DATA MATERI POTENSI DIRI
+       ========================================================================== */
+    const DATA_POTENSI = {
+      "Akademik": {
+        icon: "🧠",
+        desc: "Kemampuan memahami pelajaran, berpikir logis, menganalisis masalah, dan suka mempelajari ilmu pengetahuan.",
+        contoh: "Mudah memahami matematika, suka membaca buku sains, atau senang berdiskusi tentang pengetahuan umum."
+      },
+      "Kreativitas": {
+        icon: "🎨",
+        desc: "Kemampuan menciptakan ide-ide baru, membuat karya unik, atau menemukan solusi menarik dalam menyelesaikan masalah.",
+        contoh: "Senang menggambar, menulis cerita pendek, membuat kerajinan tangan, atau memodifikasi barang bekas."
+      },
+      "Komunikasi": {
+        icon: "🗣️",
+        desc: "Kemampuan menyampaikan ide, perasaan, atau informasi kepada orang lain dengan jelas, sopan, dan percaya diri.",
+        contoh: "Pandai bercerita, berani bertanya di kelas, menyukai presentasi kelompok, atau menjadi pembawa acara."
+      },
+      "Kepemimpinan": {
+        icon: "👑",
+        desc: "Kemampuan mengarahkan, mengorganisasi, memberi semangat, dan mengajak teman-teman bekerja sama mencapai tujuan.",
+        contoh: "Dipercaya menjadi ketua kelas, koordinator kelompok belajar, atau pemandu kegiatan ekskul."
+      },
+      "Olahraga": {
+        icon: "⚽",
+        desc: "Kelebihan dalam ketangkasan fisik, koordinasi tubuh, ketahanan jasmani, dan menyukai kegiatan olah tubuh.",
+        contoh: "Jago bermain sepak bola, bulu tangkis, berenang, atletik, atau memiliki stamina yang kuat."
+      },
+      "Seni": {
+        icon: "🎵",
+        desc: "Kepekaan dan bakat dalam mengekspresikan keindahan melalui nada, irama, tarian, atau seni peran.",
+        contoh: "Bisa memainkan alat musik, bernyanyi merdu, menari tradisional/modern, atau bermain drama."
+      },
+      "Sosial": {
+        icon: "🤝",
+        desc: "Kemampuan berempati, peduli terhadap perasaan orang lain, mudah berteman, dan suka membantu kawan.",
+        contoh: "Pendengar yang baik saat teman curhat, senang bekerja bakti, dan tidak tega melihat kawan kesusahan."
+      },
+      "Keterampilan": {
+        icon: "🛠️",
+        desc: "Kemampuan praktis dalam menggunakan alat, mengoperasikan teknologi, merakit sesuatu, atau keterampilan tangan.",
+        contoh: "Mahir menggunakan aplikasi HP/komputer, jago merakit mainan/perangkat, atau terampil memasak."
+      }
+    };
+
+    /* ==========================================================================
+       DATA PERTANYAAN ASESMEN (15 PERTANYAAN)
+       ========================================================================== */
+    const QUESTIONS = [
+      { id: 1, kateg: "Akademik", text: "Saya merasa senang dan cepat memahami saat mempelajari materi pelajaran baru di kelas." },
+      { id: 2, kateg: "Akademik", text: "Saya suka membaca buku, mencari tahu fakta menarik, atau memecahkan soal teka-teki." },
+      { id: 3, kateg: "Kreativitas", text: "Saya sering memiliki ide-ide unik atau cara baru yang berbeda dari teman-teman saat membuat tugas." },
+      { id: 4, kateg: "Kreativitas", text: "Saya menikmati kegiatan membuat karya seni, dekorasi, atau menulis cerita." },
+      { id: 5, kateg: "Komunikasi", text: "Saya merasa nyaman saat menyampaikan pendapat atau berbicara di depan teman-teman." },
+      { id: 6, kateg: "Komunikasi", text: "Saya dapat menjelaskan suatu materi kepada teman hingga mereka memahaminya." },
+      { id: 7, kateg: "Kepemimpinan", text: "Teman-teman sering memercayai saya untuk memimpin atau mengatur kerja kelompok." },
+      { id: 8, kateg: "Kepemimpinan", text: "Saya berani mengambil keputusan dan mengajak teman-teman tetap semangat mencapai tujuan." },
+      { id: 9, kateg: "Olahraga", text: "Saya sangat menyukai kegiatan olahraga, permainan fisik, atau bergerak aktif di luar ruangan." },
+      { id: 10, kateg: "Olahraga", text: "Saya memiliki stamina tubuh yang baik dan cepat menguasai gerakan cabang olahraga baru." },
+      { id: 11, kateg: "Seni", text: "Saya menikmati musik, bernyanyi, memainkan alat musik, atau menari." },
+      { id: 12, kateg: "Seni", text: "Saya mudah merasakan keindahan dalam seni, gambar, pertunjukan, atau pertunjukan panggung." },
+      { id: 13, kateg: "Sosial", text: "Saya mudah bergaul, peka terhadap perasaan teman, dan suka membantu kawan yang kesusahan." },
+      { id: 14, kateg: "Sosial", text: "Saya merasa senang saat bisa bergotong-royong dan menjadi pendengar yang baik untuk teman." },
+      { id: 15, kateg: "Keterampilan", text: "Saya terampil mengoperasikan HP/laptop, menggunakan alat praktis, atau merakit barang." }
+    ];
+
+    const OPTION_SCORES = {
+      "Sangat sesuai dengan saya": 4,
+      "Sesuai dengan saya": 3,
+      "Kadang-kadang": 2,
+      "Belum sesuai dengan saya": 1
+    };
+
+    // State Aplikasi (Tersimpan di LocalStorage)
+    let appState = {
+      identitas: { nama: "", kelas: "", absen: "" },
+      answers: {},
+      scores: {},
+      refleksi: { r1: "", r2: "", r3: "", r4: "", r5: "" },
+      rencana: { potensi: "", target: "", langkah: "", waktu: "", pendukung: "" }
+    };
+
+    /* ==========================================================================
+       INITIALIZATION & LOCAL STORAGE
+       ========================================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+      loadStateFromStorage();
+      renderQuestions();
+      updateUI();
+    });
+
+    function saveStateToStorage() {
+      localStorage.setItem('bk_potensi_diri_data', JSON.stringify(appState));
+    }
+
+    function loadStateFromStorage() {
+      const saved = localStorage.getItem('bk_potensi_diri_data');
+      if (saved) {
+        try {
+          appState = JSON.parse(saved);
+        } catch(e) { console.error(e); }
+      }
+    }
+
+    /* ==========================================================================
+       NAVIGASI NAV TABS
+       ========================================================================== */
+    function switchPage(pageId) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+      const targetPage = document.getElementById(pageId);
+      if (targetPage) targetPage.classList.add('active');
+
+      // Update active state di tab
+      const tabMap = {
+        'pageHome': 0, 'pageMateri': 1, 'pageAsesmen': 2,
+        'pageHasil': 3, 'pageRefleksi': 4, 'pageRencana': 5
+      };
+      const tabs = document.querySelectorAll('.tab-btn');
+      if (tabMap[pageId] !== undefined && tabs[tabMap[pageId]]) {
+        tabs[tabMap[pageId]].classList.add('active');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ==========================================================================
+       1 & 2. FORM IDENTITAS
+       ========================================================================== */
+    function simpanIdentitasAndNext() {
+      const nama = document.getElementById('nama').value.trim();
+      const kelas = document.getElementById('kelas').value.trim();
+      const absen = document.getElementById('absen').value.trim();
+
+      if (!nama || !kelas || !absen) {
+        showToast("⚠️ Mohon lengkapi Nama, Kelas, dan Nomor Absen terlebih dahulu!");
+        return;
+      }
+
+      appState.identitas = { nama, kelas, absen };
+      saveStateToStorage();
+      updateUI();
+      showToast("✅ Identitas berhasil disimpan!");
+      switchPage('pageMateri');
+    }
+
+    function updateUI() {
+      if (appState.identitas.nama) {
+        document.getElementById('headerUserBadge').innerText = `${appState.identitas.nama} (${appState.identitas.kelas})`;
+        document.getElementById('nama').value = appState.identitas.nama;
+        document.getElementById('kelas').value = appState.identitas.kelas;
+        document.getElementById('absen').value = appState.identitas.absen;
+      }
+
+      // Load data refleksi & rencana jika ada
+      if (appState.refleksi) {
+        document.getElementById('refleksi1').value = appState.refleksi.r1 || "";
+        document.getElementById('refleksi2').value = appState.refleksi.r2 || "";
+        document.getElementById('refleksi3').value = appState.refleksi.r3 || "";
+        document.getElementById('refleksi4').value = appState.refleksi.r4 || "";
+        document.getElementById('refleksi5').value = appState.refleksi.r5 || "";
+      }
+
+      if (appState.rencana) {
+        document.getElementById('rencanaPotensi').value = appState.rencana.potensi || "";
+        document.getElementById('rencanaTarget').value = appState.rencana.target || "";
+        document.getElementById
